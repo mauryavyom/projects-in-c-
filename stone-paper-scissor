@@ -1,0 +1,105 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+//#include <conio.h>
+
+int Generatecomputerchoice(){
+    //generates a random number between 0 and 2 for computerschoice
+    int xyz;
+    xyz=rand()%3;
+    return xyz;
+}
+
+void determinewinner(int userchoice , int computerchoice,int *userscore,int *computerscore)
+//this function is used to determine the winner and record the score.
+{
+    if(userchoice == computerchoice)
+    {
+	printf("!It's a tie!\n");
+    }
+    else if ((userchoice == 0 && computerchoice == 2)||(userchoice == 1 &&computerchoice == 0)||(userchoice == 2 &&computerchoice == 1))
+    /* In this else if staatment if the userchoice is rock and
+    computer choice is scissor or userchoice is paper and
+    computerchoice is rock or userchoice is scissor and
+    computerchoic is paper then the user will win */
+    {
+	printf("\n!!!Congratulation You win!!!\n");
+	(*userscore)++;
+    }
+    else
+    {
+	printf("!!!Computer wins!!!\n");
+	(*computerscore)++;
+    }
+}
+
+int main ()
+{
+
+    int userscore,computerscore,computerchoice,userchoice;
+    userscore=0;
+    computerscore = 0;
+
+   srand(time(NULL));//SEED FOR RANDOM NUMBER GENERATION.
+   // clrscr();
+    printf("                         Welcome to Rock,Paper,Scissor!\n ");
+
+    while (1)
+    {
+    printf("\nEnter : 0 FOR ROCK ");
+    printf("\n        1 FOR PAPER");
+    printf("\n        2 FOR SCISSOR");
+    printf("\n (0R ANY OTHER NUMBER TO EXIT THE GAME):-");
+
+    scanf("%d",&userchoice);
+
+    if (userchoice < 0 || userchoice > 2)
+    {
+	printf("Invalid input. \n Execting the game...... \n");
+	break;
+    }
+  //  int computerchoice;
+    computerchoice = Generatecomputerchoice();
+
+    printf("\n You choose ");
+    switch(userchoice)
+    {
+	case 0:
+	printf(" Rock.\n");
+	break;
+
+	case 1:
+	printf("Paper.\n");
+	break ;
+
+	case 2:
+	printf("Scissor.\n");
+	break ;
+    }
+    printf("Computer choose ");
+    switch(computerchoice)
+    {
+	case 0:
+	printf("Rock.\n");
+	break ;
+
+	case 1:
+	printf("Paper.\n");
+	break;
+
+	case 2:
+	printf("Scissor.\n");
+	break;
+
+    }
+    determinewinner(userchoice,computerchoice,&userscore,&computerscore);
+    printf("\n");
+    printf("\nCurrent score :- you = %d. computer =%d\n",userscore,computerscore);
+
+    printf("-------------------------------------------------------------------------");
+    printf("\n");
+    }
+    //getch();
+    return 0;
+    // Exit without an error code .
+}
