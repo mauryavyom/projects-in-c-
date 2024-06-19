@@ -2,6 +2,12 @@
 #include<string.h>
 
 #define MAX_EMPLOYEE 100
+#define RESET   "\033[om"
+#define RED    "\033[31m"
+#define GREEN  "\033[32m"
+#define YELLOW "\033[33m"
+#define BLUE   "\033[34m"
+#define WHITE  "\033[37m"
 
 //define a structure for employees
 typedef struct{
@@ -15,18 +21,39 @@ void displayemployee(Employee employees[],int count);
 void updateemployee(Employee employees[],int count);
 void deleteemployee(Employee employees[],int *count);
 
+//function of loading bar 
+void bar(int percentage){
+    int bar_width = 30;
+    printf("Loading");
+    int pos = bar_width*percentage /100;
+    for(int i =0 ; i<bar_width;++i){
+        if(i<pos){
+            printf(".");
+        }
+        else if (i==pos){
+            printf("!");
+        }
+        else printf(" ");
+    }
+    printf("|%d%%\r",percentage);
+    fflush(stdout);
+}
 int main(){
     Employee employees[MAX_EMPLOYEE];
     int count=0,choice;
 
     while (1){
-        printf("\n \t\t\tEmployee managment system\n");
-        printf("\n1. add employe.\n");
-        printf("2. Display Employees.\n");
-        printf("3. Update employee.\n");
-        printf("4. Delete employee.\n");
-        printf("5. Exit.\n ");
-        printf("\n Enter your choice : ");
+        printf(YELLOW"\t\t\t_____________________________\n");
+        printf("   \t\t\t|                           |");
+        printf("\n \t\t\t| Employee managment system |\n");
+        printf("   \t\t\t|___________________________|");
+        printf("\n\n");
+        printf(RED"\n\t1. add employe.\n");
+        printf("\t2. Display Employees.\n");
+        printf(BLUE"\t3. Update employee.\n");
+        printf("\t4. Delete employee.\n");
+        printf(WHITE"\t5. Exit.\n ");
+        printf("\n\t Enter your choice : ");
         scanf("%d",&choice);
 //switch statment calling the function
 
@@ -72,7 +99,12 @@ int main(){
         scanf("%f",&employees[*count].salary);
 
         (*count)++;
-        printf("\n Employee added succesfully . ");
+        for(int i =0;i<=100;i++){
+            bar(i);
+            usleep(100000);
+        }
+        printf("\n");
+        printf("\n Employee added succesfully .\n");
     }
 //function to display employee .
     void displayemployee(Employee employees[],int count){
@@ -94,12 +126,12 @@ int main(){
             printf("No data to be updated .");
             return ;
         }
-        printf("\n ENTER THE PASSWORD TO UPDATE THE DATA : ");
+        printf(GREEN"\n ENTER THE PASSWORD TO UPDATE THE DATA : ");
         scanf("%d",&pass);
 
         if(pass == 167){
 
-        printf("\nEnter id to be updated : ");
+        printf(WHITE"\nEnter id to be updated : ");
         scanf("%d",&id);
 
         for(int i = 0; i< count ; i++){
@@ -110,6 +142,12 @@ int main(){
                 printf("\n Enter new salary : ");
                 scanf("%f",&employees[i].salary);
 
+                 for(int i =0;i<=100;i++){
+            bar(i);
+            usleep(100000);
+        }
+        printf("\n");
+                printf("\nDATA UPDATED SUCCESFULLEY !!\n");
             }
         }
         if(!found ){
@@ -128,11 +166,11 @@ int main(){
             printf("no data present to delete");
             return ;
         }
-        printf("\nENTER THE PASSWORD TO DELEATE DATA : ");
+        printf(GREEN"\nENTER THE PASSWORD TO DELEATE DATA : ");
         scanf("%d",&pass);
         if(pass == 167){ 
 
-        printf("Enter the id to be deleated : ");
+        printf(WHITE"Enter the id to be deleated : ");
         scanf("%d",&id);
 // this for loop will first iterate in all structures and find the entered id .
 //then inner loop will deleate the entered employee and shift the other employee at that place .
@@ -145,8 +183,10 @@ int main(){
                     (*count)--;
             }
         }
+        
+        printf(RED"\nEMPLOYEE DATA DELEATED .\n");
         if(!found){
-            printf("\nEmployee eith this id %d not found .",id);
+            printf("\nEmployee id %d not found .",id);
         }
         }
         else{
