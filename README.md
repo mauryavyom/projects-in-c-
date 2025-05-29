@@ -19,5 +19,5 @@ Whether you're a beginner looking to practice or someone needing quick reference
 
 ---
 
-## 📂 Folder Structure
+// ## 📂 Folder Structure
 
