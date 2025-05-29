@@ -17,7 +17,4 @@ This repository contains a collection of commonly used and educational **C progr
 
 Whether you're a beginner looking to practice or someone needing quick reference code snippets — this repo has you covered.
 
----
-
-// ## 📂 Folder Structure
 
